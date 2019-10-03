@@ -10,10 +10,12 @@ namespace Laboratorio2.Compresion
     public class ZigZag
     {
         private int iClave;
+        private char cRelleno;
 
         public ZigZag()
         {
             iClave = default(int);
+            cRelleno = (char)1;
         }
 
         public ZigZag(int clave)
@@ -23,8 +25,8 @@ namespace Laboratorio2.Compresion
 
         public void Comprimir(FileInfo file)
         {
-            int M = 0;
-            M = CalcularM(file.Length);
+            var M = CalcularM(file.Length);
+
         }
 
         private int CalcularM(long lengthArchivo)
