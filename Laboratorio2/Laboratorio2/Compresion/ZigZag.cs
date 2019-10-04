@@ -33,7 +33,7 @@ namespace Laboratorio2.Compresion
         {
             double M = 0;
 
-            M=((double)(Convert.ToDouble(lengthArchivo)+1+(2*((double)iClave-2))))/((double)(2+ (2 * ((double)iClave - 2)))
+            M = ((double)(Convert.ToDouble(lengthArchivo) + 1 + (2 * ((double)iClave - 2)))) / ((double)(2 + (2 * ((double)iClave - 2))));
 
             return (int)Math.Ceiling(M);
         }
