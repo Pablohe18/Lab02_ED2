@@ -122,10 +122,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Compresion\ZigZag.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ZigZagController.cs" />
     <Compile Include="DBContext\DefaultConnection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Archivo.cs" />
+    <Compile Include="Models\Keyzigzag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,10 +167,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ZigZag\Index.cshtml" />
+    <Content Include="Views\ZigZag\Create.cshtml" />
+    <Content Include="Views\ZigZag\GetKey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

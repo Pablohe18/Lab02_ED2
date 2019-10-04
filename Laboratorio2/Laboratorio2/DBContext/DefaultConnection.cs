@@ -11,6 +11,9 @@ namespace Laboratorio2.DBContext
         private static volatile DefaultConnection Instance;
         private static object syncRoot = new Object();
 
+        public static List<Models.Archivo> archivos = new List<Models.Archivo>();
+        public int keyzigzag { get; set; }
+
         private static FileInfo fileInfo = default(FileInfo);
 
         //public List<Models.Archivo> historialCompresiones = new List<Models.Archivo>();
@@ -21,6 +24,10 @@ namespace Laboratorio2.DBContext
             IdActual = 0;
         }
 
+        public List<Models.Archivo> ObtenerLista()
+        {
+            return archivos;
+        }
         public void AsignarRuta(FileInfo file)
         {
             fileInfo = file;
