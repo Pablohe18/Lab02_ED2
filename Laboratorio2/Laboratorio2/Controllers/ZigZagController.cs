@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Laboratorio2.Models;
 using Laboratorio2.DBContext;
 using System.Net;
+using System.IO;
 
 namespace Laboratorio2.Controllers
 {
@@ -38,56 +39,52 @@ namespace Laboratorio2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.keyzigzag = keyzigzag.Clave;
-                return RedirectToAction("Index");
+                if (keyzigzag.Clave > 0)
+                {
+                    db.keyzigzag = keyzigzag.Clave;
+                    return RedirectToAction("UploadFile");
+                }
+                ViewBag.Message = "Debe ingresar un numero mayor a 0.";
             }
 
             return View(keyzigzag);
         }
 
 
-        // GET: ZigZag/Edit/5
-        public ActionResult Edit(int id)
+        //SUBIR DE ARCHIVO 
+        [HttpGet]
+        public ActionResult UploadFile()
         {
             return View();
         }
-
-        // POST: ZigZag/Edit/5
+        //SUBIR DE ARCHIVO 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadFile(HttpPostedFileBase File)
         {
-            try
+            string filePath = string.Empty;
+            if (File != null)
             {
-                // TODO: Add update logic here
+                string path = Server.MapPath("~/UploadedFiles/");
+                filePath = path + Path.GetFileName(File.FileName);
+                string extension = Path.GetExtension(File.FileName);
+                File.SaveAs(filePath);
+                ViewBag.Message = "Archivo Cargado";
+
+                FileInfo fileInfo = new FileInfo(filePath);
+
+                string nombre_original = fileInfo.Name;
+                long tamanio_original = fileInfo.Length;
+
+                db.AsignarRuta(fileInfo);
+                //db.GuardarArchivo(fileInfo);
+                //DownloadFile(fileInfo);
+
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: ZigZag/Delete/5
-        public ActionResult Delete(int id)
-        {
             return View();
-        }
-
-        // POST: ZigZag/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
