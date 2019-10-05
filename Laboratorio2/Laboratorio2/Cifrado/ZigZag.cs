@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Laboratorio2.DBContext;
 
-namespace Laboratorio2.Compresion
+namespace Laboratorio2.Cifrado
 {
     public class ZigZag
     {
@@ -23,11 +23,22 @@ namespace Laboratorio2.Compresion
             iClave = clave;
         }
 
-        public void Comprimir(FileInfo file)
+        public void Cifrar(FileInfo file)
         {
+            switch (iClave)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+            }
             var M = CalcularM(file.Length);
             var Filas = iClave - 2;
             var Columnas = 2 * (M - 1);
+
+            //if(iClave)
 
             char[] nivelSuperior = new char[M];
             char[,] nivelesIntermedios = new char[Filas, Columnas];

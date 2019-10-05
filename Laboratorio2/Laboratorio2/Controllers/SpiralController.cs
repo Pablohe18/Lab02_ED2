@@ -156,7 +156,7 @@ namespace Laboratorio2.Controllers
                         y++;
                     }
                     break;
-             
+
             }
             using (var writeStream1 = new FileStream(Server.MapPath("~/Archivo") + "/" + namefile + ".cif", FileMode.OpenOrCreate))
             {
@@ -312,4 +312,5 @@ namespace Laboratorio2.Controllers
                 }
             }
         }
+    }
 }

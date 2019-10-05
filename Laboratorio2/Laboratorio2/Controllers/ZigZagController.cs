@@ -7,12 +7,15 @@ using Laboratorio2.Models;
 using Laboratorio2.DBContext;
 using System.Net;
 using System.IO;
+using Laboratorio2.Cifrado;
 
 namespace Laboratorio2.Controllers
 {
     public class ZigZagController : Controller
     {
         DefaultConnection db = DefaultConnection.getInstance;
+        ZigZag cifradoZigzag = new ZigZag();
+
 
         // GET: ZigZag
         public ActionResult Index()
@@ -77,8 +80,9 @@ namespace Laboratorio2.Controllers
                 long tamanio_original = fileInfo.Length;
 
                 db.AsignarRuta(fileInfo);
-                //db.GuardarArchivo(fileInfo);
-                //DownloadFile(fileInfo);
+
+                cifradoZigzag = new ZigZag(db.keyzigzag);
+                cifradoZigzag.Cifrar(db.ObtenerRuta());
 
 
                 return RedirectToAction("Index");
