@@ -151,7 +151,7 @@ namespace Laboratorio2.Controllers
                 db.AsignarRuta(fileInfo);
 
                 cifradoZigzag = new ZigZag(db.keyzigzag);
-                var texto = cifradoZigzag.Cifrar(db.ObtenerRuta());
+                var texto = cifradoZigzag.Descifrar(db.ObtenerRuta());
 
                 ////////
                 var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".txt";
