@@ -390,6 +390,8 @@ namespace Laboratorio2.Cifrado
                 builder.Append(nivelSuperior[i]);
             }
 
+            builder.Replace(cRelleno,(char)0);
+
             return builder;
         }
 
@@ -437,49 +439,49 @@ namespace Laboratorio2.Cifrado
                 builder.Append(cRelleno.ToString());
             }
 
-            nivelSuperior[0] = builder.ToString()[0];
             int cont = 0;
-            for (int i = 1; i < M; i++)
+            for (int i = 0; i < M; i++)
             {
-                for (int j = 0; j < filas; j++)
-                {
-                    cont++;
-                    nivelesIntermedios[j, ((i - 1) * 2)] = builder.ToString()[cont];
-                }
-
-                cont++;
-                nivelInferior[i - 1] = builder.ToString()[cont];
-
-                for (int j = filas - 1; j > -1; j--)
-                {
-                    cont++;
-                    nivelesIntermedios[j, ((i - 1) * 2) + 1] = builder.ToString()[cont];
-                }
-
-                cont++;
                 nivelSuperior[i] = builder.ToString()[cont];
-            }
-
-            builder = new StringBuilder();
-
-            foreach (var item in nivelSuperior)
-            {
-                builder.Append(item.ToString());
+                cont++;
             }
 
             for (int i = 0; i < filas; i++)
             {
                 for (int j = 0; j < columnas; j++)
                 {
-                    builder.Append(nivelesIntermedios[i, j]);
+                    nivelesIntermedios[i, j] = builder.ToString()[cont];
+                    cont++;
                 }
             }
 
-            foreach (var item in nivelInferior)
+            for (int i = 0; i < M - 1; i++)
             {
-                builder.Append(item.ToString());
+                nivelInferior[i] = builder.ToString()[cont];
+                cont++;
             }
 
+            builder = new StringBuilder();
+
+            builder.Append(nivelSuperior[0]);
+            for (int i = 1; i < M; i++)
+            {
+                for (int j = 0; j < filas; j++)
+                {
+                    builder.Append(nivelesIntermedios[j, ((i - 1) * 2)]);
+                }
+
+                builder.Append(nivelInferior[i - 1]);
+
+                for (int j = filas - 1; j > -1; j--)
+                {
+                    builder.Append(nivelesIntermedios[j, ((i - 1) * 2) + 1]);
+                }
+
+                builder.Append(nivelSuperior[i]);
+            }
+
+            builder.Replace(cRelleno, (char)0);
 
             return builder;
         }
