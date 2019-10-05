@@ -26,6 +26,12 @@ namespace Laboratorio2.Compresion
         public void Comprimir(FileInfo file)
         {
             var M = CalcularM(file.Length);
+            var Filas = iClave - 2;
+            var Columnas = 2 * (M - 1);
+
+            char[] nivelSuperior = new char[M];
+            char[,] nivelesIntermedios = new char[Filas, Columnas];
+            char[] nivelInferior = new char[M - 1];
 
         }
 
