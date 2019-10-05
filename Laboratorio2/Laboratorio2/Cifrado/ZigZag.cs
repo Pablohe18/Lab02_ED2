@@ -25,18 +25,25 @@ namespace Laboratorio2.Cifrado
 
         public void Cifrar(FileInfo file)
         {
+            var M = default(int);
+            var Filas = default(int);
+            var Columnas = default(int);
+
             switch (iClave)
             {
                 case 1:
+
                     break;
                 case 2:
+                    M = CalcularM(file.Length);
                     break;
                 default:
+                    M = CalcularM(file.Length);
+                    Filas = iClave - 2;
+                    Columnas = 2 * (M - 1);
                     break;
             }
-            var M = CalcularM(file.Length);
-            var Filas = iClave - 2;
-            var Columnas = 2 * (M - 1);
+            
 
             //if(iClave)
 
