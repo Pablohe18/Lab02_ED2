@@ -182,7 +182,7 @@ namespace Laboratorio2.Controllers
             var path = Path.Combine(Server.MapPath("~/Archivo"), namefile);
 
             var byteBuffer = new byte[320000000];
-            List<string> text_archivocifrado = new List<string>();
+            List<string> TXTCIFRADO = new List<string>();
             using (var stream = new FileStream(path, FileMode.Open))
             {
                 using (var reader = new BinaryReader(stream))
@@ -191,13 +191,13 @@ namespace Laboratorio2.Controllers
 
                     foreach (var item in byteBuffer)
                     {
-                        text_archivocifrado.Add(Convert.ToString(item));
+                        TXTCIFRADO.Add(Convert.ToString(item));
                     }
                 }
             }
-            if ((espiral.TamañoF * espiral.TamañoC) < text_archivocifrado.Count)
+            if ((espiral.TamañoF * espiral.TamañoC) < TXTCIFRADO.Count)
             {
-                decimal division = text_archivocifrado.Count / espiral.TamañoF;
+                decimal division = TXTCIFRADO.Count / espiral.TamañoF;
                 espiral.TamañoC = (int)Math.Ceiling(division);
             }
 
@@ -208,40 +208,40 @@ namespace Laboratorio2.Controllers
             switch (espiral.Recorrido)
             {
                 case "horizontal":
-                    while (text_archivocifrado.Count > 0)
+                    while (TXTCIFRADO.Count > 0)
                     {
                         for (int i = y; i <= limites[1]; i++)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[x, i] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[x, i] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         x++;
 
 
                         for (int i = x; i <= limites[0]; i++)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[x, limites[1]] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[x, limites[1]] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         limites[1]--;
 
 
                         for (int i = limites[1]; i >= y; i--)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[limites[0], i] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[limites[0], i] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         limites[0]--;
 
 
                         for (int i = limites[0]; i >= x; i--)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[i, y] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[i, y] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         y++;
                     }
@@ -249,35 +249,35 @@ namespace Laboratorio2.Controllers
 
                 case "vertical":
 
-                    while (text_archivocifrado.Count > 0)
+                    while (TXTCIFRADO.Count > 0)
                     {
                         for (int i = x; i <= limites[0]; i++)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[i, y] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[i, y] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         y++;
 
 
                         for (int i = y; i <= limites[1]; i++)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[limites[0], i] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[limites[0], i] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         for (int i = limites[0] - 1; i >= x; i--)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[i, limites[1]] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[i, limites[1]] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
 
                         for (int i = limites[1] - 1; i >= y; i--)
                         {
-                            if (text_archivocifrado.Count == 0) { break; }
-                            matriz[x, i] = text_archivocifrado.First();
-                            text_archivocifrado.Remove(text_archivocifrado.First());
+                            if (TXTCIFRADO.Count == 0) { break; }
+                            matriz[x, i] = TXTCIFRADO.First();
+                            TXTCIFRADO.Remove(TXTCIFRADO.First());
                         }
                         x++;
                         limites[0]--; limites[1]--;
