@@ -118,9 +118,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Compresion\ZigZag.cs" />
+    <Compile Include="App_Start\RouteConfig2.cs" />
+    <Compile Include="Cifrado\Cesar.cs" />
+    <Compile Include="Cifrado\ZigZag.cs" />
+    <Compile Include="Controllers\CesarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ZigZagController.cs" />
     <Compile Include="DBContext\DefaultConnection.cs" />
@@ -170,6 +175,8 @@
     <Content Include="Views\ZigZag\Index.cshtml" />
     <Content Include="Views\ZigZag\GetKey.cshtml" />
     <Content Include="Views\ZigZag\UploadFile.cshtml" />
+    <Content Include="Views\Cesar\UploadFile.cshtml" />
+    <Content Include="Views\Cesar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

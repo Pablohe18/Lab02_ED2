@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Laboratorio2.Models.Archivo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Encrypt", "UploadFile")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaCifrado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombreArchivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tamanioArchivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tamanioArchivoNuevo)
+        </th>
+    </tr>
+
+</table>
