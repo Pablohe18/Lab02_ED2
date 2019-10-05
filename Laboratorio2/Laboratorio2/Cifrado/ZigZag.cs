@@ -25,7 +25,7 @@ namespace Laboratorio2.Cifrado
             cRelleno = (char)1;
         }
 
-        public void Cifrar(FileInfo file)
+        public string Cifrar(FileInfo file)
         {
 
             var M = default(int);
@@ -50,7 +50,7 @@ namespace Laboratorio2.Cifrado
                     break;
             }
 
-
+            return texto.ToString();
         }
 
         private int CalcularM(long lengthArchivo)

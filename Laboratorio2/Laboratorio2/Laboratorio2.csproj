@@ -179,9 +179,13 @@
     <Content Include="Views\ZigZag\UploadFile.cshtml" />
     <Content Include="Views\Cesar\UploadFile.cshtml" />
     <Content Include="Views\Cesar\Index.cshtml" />
+    <Content Include="Views\ZigZag\DownloadFile.cshtml" />
+    <Content Include="Views\ZigZag\GetKeyDecipher.cshtml" />
+    <Content Include="Views\ZigZag\UploadFileDecipher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DownloadedFiles\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Spiral\" />
   </ItemGroup>
