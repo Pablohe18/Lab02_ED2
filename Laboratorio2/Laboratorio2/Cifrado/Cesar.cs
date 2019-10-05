@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -8,10 +7,10 @@ namespace Laboratorio2.Cifrado
 {
     public class Cesar
     {
-        public static String CifrarCadena(FileInfo file)
+        public static String CifrarCadena(String text)
         {
             int valorCaracter, letras;
-            string cadena = file.ToString(), cifrado = "";
+            string cadena = text, cifrado = "";
             letras = cadena.Length;
             char[] ch = new char[letras];
             for (int i = 0; i < letras; i++)
@@ -23,10 +22,10 @@ namespace Laboratorio2.Cifrado
             return cifrado;
         }
 
-        public static String DecifrarCadena(FileInfo file)
+        public static String DecifrarCadena(String textCifrado)
         {
             int valorCaracter, letras;
-            string cadena = file.ToString(), descifrado = "";
+            string cadena = textCifrado, descifrado = "";
             letras = cadena.Length;
             char[] ch = new char[letras];
             for (int i = 0; i < letras; i++)
