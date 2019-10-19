@@ -187,6 +187,7 @@
     <Content Include="Views\ZigZag\UploadFileDecipher.cshtml" />
     <Content Include="Views\SDES\Index.cshtml" />
     <Content Include="Views\SDES\GetKey.cshtml" />
+    <Content Include="Views\SDES\EncryptFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,6 +22,7 @@ namespace Laboratorio2.Controllers
         }
 
         //GET: SDES/GetKey
+        [HttpGet]
         public ActionResult GetKey()
         {
             return View();
@@ -36,14 +37,60 @@ namespace Laboratorio2.Controllers
                 if (keysdes.Key > 0 && keysdes.Key < 1024) 
                 {
                     db.keysdes = keysdes.Key;
-                    //return RedirectToAction("UploadFile");
+                    return RedirectToAction("EncryptFile");
                 }
                 ViewBag.Message = "Debe ingresar un numero mayor a 0 y menor a 1024";
             }
             return View(keysdes);
         }
 
+        //GET: SDES/EncryptFile
+        [HttpGet]
+        public ActionResult EncryptFile()
+        {
+            return View();
+        }
 
+        //SUBIR DE ARCHIVO PARA CIFRAR
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EncryptFile(HttpPostedFileBase File)
+        {
+            string filePath = string.Empty;
+            if (File != null)
+            {
+                string path = Server.MapPath("~/UploadedFiles/");
+                filePath = path + Path.GetFileName(File.FileName);
+                string extension = Path.GetExtension(File.FileName);
+                File.SaveAs(filePath);
+                ViewBag.Message = "Archivo Cargado";
+
+                FileInfo fileInfo = new FileInfo(filePath);
+
+                string nombre_original = fileInfo.Name;
+                long tamanio_original = fileInfo.Length;
+
+                db.AsignarRuta(fileInfo);
+
+                cifradoSDes.GenerarKeys(db.keysdes);
+
+                ////////
+                //var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".cif";
+                //using (StreamWriter outputFile = new StreamWriter(ruta))
+                //{
+                //    foreach (char caracter in texto)
+                //    {
+                //        outputFile.Write(caracter.ToString());
+                //    }
+                //}
+
+                //db.AsignarRuta(new FileInfo(ruta));
+
+                //return RedirectToAction("DownloadFile");
+            }
+
+            return View();
+        }
 
         // GET: SDES/Details/5
         public ActionResult Details(int id)

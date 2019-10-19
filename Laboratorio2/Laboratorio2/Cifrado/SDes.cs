@@ -46,12 +46,12 @@ namespace Laboratorio2.Cifrado
 
         }
 
-        private void GenerarKeys()
+        public void GenerarKeys(int key)
         {
-
+            GenerarKeyInicial(key);
         }
 
-        private void GenerarKeyInicial()
+        private void GenerarKeyInicial(int keyInicial)
         {
 
         }
