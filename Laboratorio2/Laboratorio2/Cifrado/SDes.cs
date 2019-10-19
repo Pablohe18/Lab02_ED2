@@ -49,7 +49,7 @@ namespace Laboratorio2.Cifrado
             Key2 = new int[8];
         }
 
-        public void Cifrado(char num_caracter)
+        public char Cifrado(char num_caracter)
         {
             var caracter = GenerarCaracterInicial((int)num_caracter);
             var caracterIP = ObtenerIP(caracter);
@@ -61,6 +61,32 @@ namespace Laboratorio2.Cifrado
             var caracterP4 = ObtenerP4(caracterSBox);
             var caracterXORP = ObtenerXORP1(caracterP4, caracter_p1);
             var caracterUnion = Union(caracterXORP, caracter_p2);
+            var caracterSwap = ObtenerSwap(caracterUnion);
+            caracter_p1 = new int[] { caracterSwap[0], caracterSwap[1], caracterSwap[2], caracterSwap[3] };
+            caracter_p2 = new int[] { caracterSwap[4], caracterSwap[5], caracterSwap[6], caracterSwap[7] };
+            caracter2EP = ObtenerEP(caracter_p2);
+            var caracterXORK2 = ObtenerXORKey(caracter2EP, Key2);
+            caracterSBox = ObtenerSBox(caracterXORK2);
+            caracterP4 = ObtenerP4(caracterSBox);
+            caracterXORP = ObtenerXORP1(caracterP4, caracter_p1);
+            caracterUnion = Union(caracterXORP, caracter_p2);
+            var caractercifrado = ObtenerIP1(caracterUnion);
+
+            return ObtenerCaracterCifrado(caractercifrado);
+        }
+
+        private char ObtenerCaracterCifrado(int[] caracter_cifrado)
+        {
+            int inicio = 128;
+            int caracter = 0;
+
+            for (int i = 0; i < 8; i++)
+            {
+                caracter += (inicio * caracter_cifrado[i]);
+                inicio = inicio / 2;
+            }
+
+            return (char)caracter;
         }
 
         private int[] ObtenerIP(int[] caracter_inicial)
@@ -69,6 +95,28 @@ namespace Laboratorio2.Cifrado
             for (int i = 0; i < 8; i++)
             {
                 aux[i] = caracter_inicial[IP[i]];
+            }
+
+            return aux;
+        }
+
+        private int[] ObtenerIP1(int[] caracter_union)
+        {
+            int[] aux = new int[8];
+            for (int i = 0; i < 8; i++)
+            {
+                aux[i] = caracter_union[IP1[i]];
+            }
+
+            return aux;
+        }
+
+        private int[] ObtenerSwap(int[] caracter_union)
+        {
+            int[] aux = new int[8];
+            for (int i = 0; i < 8; i++)
+            {
+                aux[i] = caracter_union[Swap[i]];
             }
 
             return aux;
@@ -183,9 +231,30 @@ namespace Laboratorio2.Cifrado
         /// <summary>
         /// //////////////////////////////////////////////////////
         /// </summary>
-        public void Descrifrado()
+        public char Descrifrado(char num_caracter)
         {
+            var caracter = GenerarCaracterInicial((int)num_caracter);
+            var caracterIP = ObtenerIP(caracter);
+            var caracter_p1 = new int[] { caracterIP[0], caracterIP[1], caracterIP[2], caracterIP[3] };
+            var caracter_p2 = new int[] { caracterIP[4], caracterIP[5], caracterIP[6], caracterIP[7] };
+            var caracter2EP = ObtenerEP(caracter_p2);
+            var caracterXORK1 = ObtenerXORKey(caracter2EP, Key2);
+            var caracterSBox = ObtenerSBox(caracterXORK1);
+            var caracterP4 = ObtenerP4(caracterSBox);
+            var caracterXORP = ObtenerXORP1(caracterP4, caracter_p1);
+            var caracterUnion = Union(caracterXORP, caracter_p2);
+            var caracterSwap = ObtenerSwap(caracterUnion);
+            caracter_p1 = new int[] { caracterSwap[0], caracterSwap[1], caracterSwap[2], caracterSwap[3] };
+            caracter_p2 = new int[] { caracterSwap[4], caracterSwap[5], caracterSwap[6], caracterSwap[7] };
+            caracter2EP = ObtenerEP(caracter_p2);
+            var caracterXORK2 = ObtenerXORKey(caracter2EP, Key1);
+            caracterSBox = ObtenerSBox(caracterXORK2);
+            caracterP4 = ObtenerP4(caracterSBox);
+            caracterXORP = ObtenerXORP1(caracterP4, caracter_p1);
+            caracterUnion = Union(caracterXORP, caracter_p2);
+            var caractercifrado = ObtenerIP1(caracterUnion);
 
+            return ObtenerCaracterCifrado(caractercifrado);
         }
         /// <summary>
         /// ///////////////////////////////////////////////////////////////////

@@ -8,6 +8,7 @@ using Laboratorio2.Models;
 using Laboratorio2.Cifrado;
 using System.Net;
 using System.IO;
+using System.Text;
 
 namespace Laboratorio2.Controllers
 {
@@ -75,7 +76,8 @@ namespace Laboratorio2.Controllers
 
                 cifradoSDes = new SDes(1);
                 cifradoSDes.GenerarKeys(db.keysdes);
-                cifradoSDes.Cifrado('v');
+
+                StringBuilder builder = new StringBuilder();
 
                 var buffer = new byte[bufferLength];
                 using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
@@ -87,7 +89,7 @@ namespace Laboratorio2.Controllers
                             buffer = reader.ReadBytes(bufferLength);
                             foreach (var item in buffer)
                             {
-                                cifradoSDes.Cifrado((char)item);
+                                builder.Append(cifradoSDes.Cifrado((char)item));
                             }
                         }
 
@@ -96,18 +98,18 @@ namespace Laboratorio2.Controllers
                 }
 
                 ////////
-                //var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".cif";
-                //using (StreamWriter outputFile = new StreamWriter(ruta))
-                //{
-                //    foreach (char caracter in texto)
-                //    {
-                //        outputFile.Write(caracter.ToString());
-                //    }
-                //}
+                var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".scif";
+                using (StreamWriter outputFile = new StreamWriter(ruta))
+                {
+                    foreach (char caracter in builder.ToString())
+                    {
+                        outputFile.Write(caracter.ToString());
+                    }
+                }
 
-                //db.AsignarRuta(new FileInfo(ruta));
+                db.AsignarRuta(new FileInfo(ruta));
 
-                //return RedirectToAction("DownloadFile");
+                return RedirectToAction("DownloadFile");
             }
 
             return View();
