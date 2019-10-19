@@ -124,6 +124,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Cifrado\Cesar.cs" />
+    <Compile Include="Cifrado\SDes.cs" />
     <Compile Include="Cifrado\ZigZag.cs" />
     <Compile Include="Controllers\CesarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +186,7 @@
     <Content Include="Views\ZigZag\GetKeyDecipher.cshtml" />
     <Content Include="Views\ZigZag\UploadFileDecipher.cshtml" />
     <Content Include="Views\SDES\Index.cshtml" />
+    <Content Include="Views\SDES\GetKey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
