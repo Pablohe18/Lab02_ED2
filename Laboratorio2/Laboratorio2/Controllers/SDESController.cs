@@ -15,6 +15,7 @@ namespace Laboratorio2.Controllers
     {
         DefaultConnection db = DefaultConnection.getInstance;
         SDes cifradoSDes = new SDes();
+        int bufferLength = 100;
         // GET: SDES
         public ActionResult Index()
         {
@@ -74,6 +75,25 @@ namespace Laboratorio2.Controllers
 
                 cifradoSDes = new SDes(1);
                 cifradoSDes.GenerarKeys(db.keysdes);
+                cifradoSDes.Cifrado('v');
+
+                var buffer = new byte[bufferLength];
+                using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
+                {
+                    using (var reader = new BinaryReader(file))
+                    {
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
+                        {
+                            buffer = reader.ReadBytes(bufferLength);
+                            foreach (var item in buffer)
+                            {
+                                cifradoSDes.Cifrado((char)item);
+                            }
+                        }
+
+                    }
+
+                }
 
                 ////////
                 //var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".cif";
