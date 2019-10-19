@@ -89,7 +89,7 @@ namespace Laboratorio2.Controllers
                             buffer = reader.ReadBytes(bufferLength);
                             foreach (var item in buffer)
                             {
-                                builder.Append(cifradoSDes.Cifrado((char)item));
+                                builder.Append(cifradoSDes.Cifrado((char)item).ToString());
                             }
                         }
 
@@ -115,76 +115,114 @@ namespace Laboratorio2.Controllers
             return View();
         }
 
-        // GET: SDES/Details/5
-        public ActionResult Details(int id)
+        /// <summary>
+        /// ////////////////////////////
+        /// </summary>
+        /// <returns></returns>
+
+        //GET: SDES/GetKey
+        [HttpGet]
+        public ActionResult GetKeyDecrypt()
         {
             return View();
         }
-
-        // GET: SDES/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SDES/Create
+        //POST: SDES/GetKey
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult GetKeyDecrypt([Bind(Include = "Key")]Keysdes keysdes)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (keysdes.Key > 0 && keysdes.Key < 1024)
+                {
+                    db.keysdes = keysdes.Key;
+                    return RedirectToAction("DecryptFile");
+                }
+                ViewBag.Message = "Debe ingresar un numero mayor a 0 y menor a 1024";
             }
-            catch
-            {
-                return View();
-            }
+            return View(keysdes);
         }
 
-        // GET: SDES/Edit/5
-        public ActionResult Edit(int id)
+        //GET: SDES/DecryptFile
+        [HttpGet]
+        public ActionResult DecryptFile()
         {
             return View();
         }
 
-        // POST: SDES/Edit/5
+        //SUBIR DE ARCHIVO PARA DESCIFRAR
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult DecryptFile(HttpPostedFileBase File)
         {
-            try
+            string filePath = string.Empty;
+            if (File != null)
             {
-                // TODO: Add update logic here
+                string path = Server.MapPath("~/UploadedFiles/");
+                filePath = path + Path.GetFileName(File.FileName);
+                string extension = Path.GetExtension(File.FileName);
+                File.SaveAs(filePath);
+                ViewBag.Message = "Archivo Cargado";
 
-                return RedirectToAction("Index");
+                FileInfo fileInfo = new FileInfo(filePath);
+
+                string nombre_original = fileInfo.Name;
+                long tamanio_original = fileInfo.Length;
+
+                db.AsignarRuta(fileInfo);
+
+                cifradoSDes = new SDes(1);
+                cifradoSDes.GenerarKeys(db.keysdes);
+
+                StringBuilder builder = new StringBuilder();
+
+                var buffer = new byte[bufferLength];
+                using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
+                {
+                    using (var reader = new BinaryReader(file))
+                    {
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
+                        {
+                            buffer = reader.ReadBytes(bufferLength);
+                            foreach (var item in buffer)
+                            {
+                                builder.Append(cifradoSDes.Descrifrado((char)item).ToString());
+                            }
+                        }
+
+                    }
+
+                }
+
+                ////////
+                var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".txt";
+                using (StreamWriter outputFile = new StreamWriter(ruta))
+                {
+                    foreach (char caracter in builder.ToString())
+                    {
+                        outputFile.Write(caracter.ToString());
+                    }
+                }
+
+                db.AsignarRuta(new FileInfo(ruta));
+
+                return RedirectToAction("DownloadFile");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View();
         }
 
-        // GET: SDES/Delete/5
-        public ActionResult Delete(int id)
+        //METODO PARA DESCARGAR EL ARCHIVO
+        public ActionResult DownloadFile()
         {
             return View();
         }
 
-        // POST: SDES/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //DESCARGAR EL ARCHIVO
+        public FileResult Download()
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name;
+            return File(ruta, "text/plain", db.ObtenerRuta().Name);
         }
     }
 }
