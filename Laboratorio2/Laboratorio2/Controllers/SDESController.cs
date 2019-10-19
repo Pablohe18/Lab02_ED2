@@ -72,6 +72,7 @@ namespace Laboratorio2.Controllers
 
                 db.AsignarRuta(fileInfo);
 
+                cifradoSDes = new SDes(1);
                 cifradoSDes.GenerarKeys(db.keysdes);
 
                 ////////
