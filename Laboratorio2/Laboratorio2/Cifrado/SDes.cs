@@ -48,12 +48,22 @@ namespace Laboratorio2.Cifrado
 
         public void GenerarKeys(int key)
         {
-            GenerarKeyInicial(key);
+            Key = GenerarKeyInicial(key);
         }
 
-        private void GenerarKeyInicial(int keyInicial)
+        private int[] GenerarKeyInicial(int keyInicial)
         {
+            var binario = Convert.ToString(keyInicial, 2);
+            int[] aux = new int[10];
+            int contador = 9;
 
+            for (int i = binario.Length-1; i >= 0; i--)
+            {
+                aux[contador] = int.Parse(binario.Substring(i, 1));
+                contador--;
+            }
+
+            return aux;
         }
     }
 }
