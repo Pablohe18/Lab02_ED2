@@ -1,0 +1,6 @@
+;Finalizar Programa
+	XOR AH, AH
+	Mov AH,4CH
+	INT 21h
+
+END programa

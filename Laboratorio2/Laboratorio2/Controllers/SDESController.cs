@@ -79,14 +79,14 @@ namespace Laboratorio2.Controllers
 
                 StringBuilder builder = new StringBuilder();
 
-                var buffer = new byte[bufferLength];
+                var buffer = new char[bufferLength];
                 using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
                 {
                     using (var reader = new BinaryReader(file))
                     {
                         while (reader.BaseStream.Position != reader.BaseStream.Length)
                         {
-                            buffer = reader.ReadBytes(bufferLength);
+                            buffer = reader.ReadChars(bufferLength);
                             foreach (var item in buffer)
                             {
                                 builder.Append(cifradoSDes.Cifrado((char)item).ToString());
@@ -176,14 +176,14 @@ namespace Laboratorio2.Controllers
 
                 StringBuilder builder = new StringBuilder();
 
-                var buffer = new byte[bufferLength];
+                var buffer = new char[bufferLength];
                 using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
                 {
                     using (var reader = new BinaryReader(file))
                     {
                         while (reader.BaseStream.Position != reader.BaseStream.Length)
                         {
-                            buffer = reader.ReadBytes(bufferLength);
+                            buffer = reader.ReadChars(bufferLength);
                             foreach (var item in buffer)
                             {
                                 builder.Append(cifradoSDes.Descrifrado((char)item).ToString());
