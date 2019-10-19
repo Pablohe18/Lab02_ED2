@@ -195,6 +195,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DownloadedFiles\" />
+    <Folder Include="Permutaciones\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Spiral\" />
   </ItemGroup>

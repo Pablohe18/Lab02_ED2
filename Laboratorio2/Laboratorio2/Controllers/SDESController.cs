@@ -96,7 +96,7 @@ namespace Laboratorio2.Controllers
                     }
 
                 }
-
+                
                 ////////
                 var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".scif";
                 using (StreamWriter outputFile = new StreamWriter(ruta))

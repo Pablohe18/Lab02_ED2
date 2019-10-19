@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Net;
+using System.IO;
 
 namespace Laboratorio2.Cifrado
 {
@@ -343,6 +346,10 @@ namespace Laboratorio2.Cifrado
             aux[9] = n4;
 
             return aux;
+        }
+
+        private void LeerPermutaciones()
+        { 
         }
     }
 }
