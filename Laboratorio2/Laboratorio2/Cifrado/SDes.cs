@@ -41,10 +41,10 @@ namespace Laboratorio2.Cifrado
             P4 = new int[] { 0, 3, 2, 1 };
             EP = new int[] { 0, 1, 3, 2, 3, 2, 1, 0 };
             IP = new int[] { 6, 3, 5, 7, 2, 0, 1, 4 };
-            Swap = new int[8];
-            IP1 = new int[8];
-            S0 = new string[4, 4];
-            S1 = new string[4, 4];
+            Swap = new int[] { 4, 5, 6, 7, 0, 1, 2, 3 };
+            IP1 = new int[] { 5, 6, 4, 1, 7, 2, 0, 3 };
+            S0 = new string[,] { { "01", "00", "11", "10" }, { "11", "10", "01", "00" }, { "00", "10", "01", "11" }, { "11", "01", "11", "10" } };
+            S1 = new string[,] { { "00", "01", "10", "11" }, { "10", "00", "01", "11" }, { "11", "00", "01", "00" }, { "10", "01", "00", "11" } };
             Key1 = new int[8];
             Key2 = new int[8];
         }
@@ -57,6 +57,10 @@ namespace Laboratorio2.Cifrado
             var caracter_p2 = new int[] { caracterIP[4], caracterIP[5], caracterIP[6], caracterIP[7] };
             var caracter2EP = ObtenerEP(caracter_p2);
             var caracterXORK1 = ObtenerXORKey(caracter2EP, Key1);
+            var caracterSBox = ObtenerSBox(caracterXORK1);
+            var caracterP4 = ObtenerP4(caracterSBox);
+            var caracterXORP = ObtenerXORP1(caracterP4, caracter_p1);
+            var caracterUnion = Union(caracterXORP, caracter_p2);
         }
 
         private int[] ObtenerIP(int[] caracter_inicial)
@@ -65,6 +69,69 @@ namespace Laboratorio2.Cifrado
             for (int i = 0; i < 8; i++)
             {
                 aux[i] = caracter_inicial[IP[i]];
+            }
+
+            return aux;
+        }
+
+        private int[] Union(int[] caracter_XORP,int[] caracterp2)
+        {
+            int[] aux = new int[8];
+            for (int i = 0; i < 8; i++)
+            {
+                if (i<4)
+                {
+                    aux[i] = caracter_XORP[i];
+                }
+                else
+                {
+                    aux[i] = caracterp2[i - 4];
+                }
+            }
+
+            return aux;
+        }
+
+        private int[] ObtenerXORP1(int[] caracter_p4, int[] caracterp2)
+        {
+            int[] aux = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                if (caracter_p4[i] == caracterp2[i])
+                {
+                    aux[i] = 0;
+                }
+                else
+                {
+                    aux[i] = 1;
+                }
+            }
+
+            return aux;
+        }
+
+        private int[] ObtenerP4(int[] caracter_SBox)
+        {
+            int[] aux = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                aux[i] = caracter_SBox[P4[i]];
+            }
+
+            return aux;
+        }
+
+        private int[] ObtenerSBox(int[] caracter_XORK1)
+        {
+            int filaS0 = (2 * caracter_XORK1[0]) + caracter_XORK1[3];
+            int columnaS0 = (2 * caracter_XORK1[1]) + caracter_XORK1[2];
+            int filaS1 = (2 * caracter_XORK1[4]) + caracter_XORK1[7];
+            int columnaS1 = (2 * caracter_XORK1[5]) + caracter_XORK1[6];
+            string temp = S0[filaS0, columnaS0] + S1[filaS1, columnaS1];
+            int[] aux = new int[4];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                aux[i] = int.Parse(temp.Substring(i, 1));
             }
 
             return aux;
