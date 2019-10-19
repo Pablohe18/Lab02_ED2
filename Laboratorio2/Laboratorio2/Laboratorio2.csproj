@@ -127,6 +127,7 @@
     <Compile Include="Cifrado\ZigZag.cs" />
     <Compile Include="Controllers\CesarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SDESController.cs" />
     <Compile Include="Controllers\SpiralController.cs" />
     <Compile Include="Controllers\ZigZagController.cs" />
     <Compile Include="DBContext\DefaultConnection.cs" />
@@ -135,6 +136,7 @@
     </Compile>
     <Compile Include="Models\Archivo.cs" />
     <Compile Include="Models\Espiral.cs" />
+    <Compile Include="Models\Keysdes.cs" />
     <Compile Include="Models\Keyzigzag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +184,7 @@
     <Content Include="Views\ZigZag\DownloadFile.cshtml" />
     <Content Include="Views\ZigZag\GetKeyDecipher.cshtml" />
     <Content Include="Views\ZigZag\UploadFileDecipher.cshtml" />
+    <Content Include="Views\SDES\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
