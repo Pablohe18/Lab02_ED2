@@ -13,6 +13,7 @@ namespace Laboratorio2.DBContext
 
         public static List<Models.Archivo> archivos = new List<Models.Archivo>();
         public int keyzigzag { get; set; }
+        public int keysdes { get; set; }
 
         private static FileInfo fileInfo = default(FileInfo);
 
