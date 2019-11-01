@@ -128,6 +128,7 @@
     <Compile Include="Cifrado\ZigZag.cs" />
     <Compile Include="Controllers\CesarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RSAController.cs" />
     <Compile Include="Controllers\SDESController.cs" />
     <Compile Include="Controllers\SpiralController.cs" />
     <Compile Include="Controllers\ZigZagController.cs" />
@@ -137,6 +138,7 @@
     </Compile>
     <Compile Include="Models\Archivo.cs" />
     <Compile Include="Models\Espiral.cs" />
+    <Compile Include="Models\KeyRSA.cs" />
     <Compile Include="Models\Keysdes.cs" />
     <Compile Include="Models\Keyzigzag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +199,7 @@
     <Folder Include="DownloadedFiles\" />
     <Folder Include="Permutaciones\" />
     <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\RSA\" />
     <Folder Include="Views\Spiral\" />
   </ItemGroup>
   <ItemGroup>
