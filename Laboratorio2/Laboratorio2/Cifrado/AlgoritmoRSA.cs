@@ -13,7 +13,39 @@ namespace Laboratorio2.Cifrado
         {
             keys = new long[2];
         }
+
         
+        bool coprimos(int a, int b)
+        {
+            bool verify = false;
+            if (mcd(a, b) == 1)
+            {
+                verify = true;
+            }
+            return verify;
+        }
+        int chooseE(int phi)
+        {
+            int e = 0;
+            bool found = false;
+            int counter = 2;
+            while (!found && counter < phi)
+            {
+                bool isIt = coprimos(counter, phi);
+                if (isIt)
+                {
+                    bool verify = isPrime(counter);
+                    if (verify && counter > 10)
+                    {
+                        e = counter;
+                        found = true;
+                    }
+                }
+                counter++;
+
+            }
+            return e;
+        }
 
         public bool isPrime(int n)
         {
