@@ -78,8 +78,8 @@ namespace Laboratorio2.Controllers
                         ViewBag.Message = "File uploaded";
 
                         FilePath = Server.MapPath("~/Archivo");
-                        CifradoRSA rsa = new CifradoRSA();
-                        rsa.LeerTxt(path1, path2, FilePath, fileName);
+                        //CifradoRSA rsa = new CifradoRSA();
+                        //rsa.LeerTxt(path1, path2, FilePath, fileName);
                     }
 
                 }
@@ -101,13 +101,13 @@ namespace Laboratorio2.Controllers
         {
             //MANDAR A LLAMAR A LA VISTA RSA
             KeyRSA rsa = new KeyRSA();
-            rsa.ValorP = Convert.ToInt32(primo1);
-            rsa.ValorQ = Convert.ToInt32(primo2);
+            //rsa.ValorP = Convert.ToInt32(primo1);
+            //rsa.ValorQ = Convert.ToInt32(primo2);
             return View(rsa);
         }
 
         // POST: RSA/Create
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Clave(KeyRSA rsa)
         {
             try
@@ -144,7 +144,7 @@ namespace Laboratorio2.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         public bool numeroPrimo(int num, int divisor)
         {
@@ -221,8 +221,8 @@ namespace Laboratorio2.Controllers
                         ViewBag.Message = "File uploaded";
 
                         FilePath = Server.MapPath("~/Archivo");
-                        CifradoRSA rsa = new CifradoRSA();
-                        rsa.LeerCifrado(path1, path2, FilePath, fileName);
+                        //CifradoRSA rsa = new CifradoRSA();
+                        //rsa.LeerCifrado(path1, path2, FilePath, fileName);
                     }
 
                 }
