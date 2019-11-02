@@ -200,6 +200,9 @@
     <Content Include="Views\AlgoritmoRSA\Index.cshtml" />
     <Content Include="Views\AlgoritmoRSA\GenerateKeys.cshtml" />
     <Content Include="Views\AlgoritmoRSA\DownloadKeys.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\ReadPublicKey.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\DownloadFile.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\EncryptFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
