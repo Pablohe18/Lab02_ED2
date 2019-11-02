@@ -134,8 +134,8 @@ namespace Laboratorio2.Controllers
                 StreamReader reader = new StreamReader(fileInfo.FullName);
                 while ((builder = reader.ReadLine()) != null)
                 {
-                    cifradoRSA.keys[0] = Convert.ToInt64(builder.Split(',')[0]);
-                    cifradoRSA.keys[1] = Convert.ToInt64(builder.Split(',')[1]);
+                    db.publicKeyRSA[0] = Convert.ToInt64(builder.Split(',')[0]);
+                    db.publicKeyRSA[1] = Convert.ToInt64(builder.Split(',')[1]);
                 }
                 reader.Close();
 
@@ -170,6 +170,9 @@ namespace Laboratorio2.Controllers
                 FileInfo fileInfo = new FileInfo(filePath);
                 db.AsignarRuta(fileInfo);
                 StringBuilder builder = new StringBuilder();
+
+                cifradoRSA.keys[0] = db.publicKeyRSA[0];
+                cifradoRSA.keys[1] = db.publicKeyRSA[1];
 
                 var buffer = new char[bufferLength];
                 using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
@@ -239,17 +242,82 @@ namespace Laboratorio2.Controllers
                 StreamReader reader = new StreamReader(fileInfo.FullName);
                 while ((builder = reader.ReadLine()) != null)
                 {
-                    cifradoRSA.keys[0] = Convert.ToInt64(builder.Split(',')[0]);
-                    cifradoRSA.keys[1] = Convert.ToInt64(builder.Split(',')[1]);
+                    db.privateKeyRSA[0] = Convert.ToInt64(builder.Split(',')[0]);
+                    db.privateKeyRSA[1] = Convert.ToInt64(builder.Split(',')[1]);
                 }
                 reader.Close();
 
-                return RedirectToAction("EncryptFile");
+                return RedirectToAction("DecryptFile");
             }
 
             return View();
         }
 
+        //GET: SDES/DecryptFile
+        [HttpGet]
+        public ActionResult DecryptFile()
+        {
+            return View();
+        }
+
+        //SUBIR DE ARCHIVO PARA DESCIFRAR
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DecryptFile(HttpPostedFileBase File)
+        {
+            string filePath = string.Empty;
+            if (File != null)
+            {
+                string path = Server.MapPath("~/UploadedFiles/");
+                filePath = path + Path.GetFileName(File.FileName);
+                string extension = Path.GetExtension(File.FileName);
+                File.SaveAs(filePath);
+                ViewBag.Message = "Archivo Cargado";
+
+                FileInfo fileInfo = new FileInfo(filePath);
+
+                db.AsignarRuta(fileInfo);
+
+                StringBuilder builder = new StringBuilder();
+
+                cifradoRSA.keys[0] = db.privateKeyRSA[0];
+                cifradoRSA.keys[1] = db.privateKeyRSA[1];
+
+                var buffer = new char[bufferLength];
+                using (var file = new FileStream(db.ObtenerRuta().FullName, FileMode.Open))
+                {
+                    using (var reader = new BinaryReader(file))
+                    {
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
+                        {
+                            buffer = reader.ReadChars(bufferLength);
+                            foreach (var item in buffer)
+                            {
+                                builder.Append(((char)cifradoRSA.decipher((int)item)).ToString());
+                            }
+                        }
+
+                    }
+
+                }
+
+                ////////
+                var ruta = Server.MapPath("~/DownloadedFiles/") + db.ObtenerRuta().Name.Split('.')[0] + ".txt";
+                using (StreamWriter outputFile = new StreamWriter(ruta))
+                {
+                    foreach (char caracter in builder.ToString())
+                    {
+                        outputFile.Write(caracter.ToString());
+                    }
+                }
+
+                db.AsignarRuta(new FileInfo(ruta));
+
+                return RedirectToAction("DownloadFile");
+            }
+
+            return View();
+        }
 
         //METODO PARA DESCARGAR EL ARCHIVO
         public ActionResult DownloadFile()

@@ -203,6 +203,8 @@
     <Content Include="Views\AlgoritmoRSA\ReadPublicKey.cshtml" />
     <Content Include="Views\AlgoritmoRSA\DownloadFile.cshtml" />
     <Content Include="Views\AlgoritmoRSA\EncryptFile.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\ReadPrivateKey.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\DecryptFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

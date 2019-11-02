@@ -14,8 +14,8 @@ namespace Laboratorio2.DBContext
         public static List<Models.Archivo> archivos = new List<Models.Archivo>();
         public int keyzigzag { get; set; }
         public int keysdes { get; set; }
-        public int[] privateKeyRSA = new int[2];
-        public int[] publicKeyRSA = new int[2];
+        public long[] privateKeyRSA = new long[2];
+        public long[] publicKeyRSA = new long[2];
 
         private static FileInfo fileInfo = default(FileInfo);
 
