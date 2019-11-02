@@ -32,6 +32,14 @@ namespace Laboratorio2.Cifrado
             }
 
         }
+        public int cipher(int c)
+        {
+            int result = 0;
+            long partial = Convert.ToInt64((c).ToString());
+            //result = partial.modPow(keys[1], keys[0]).intValue();
+            result = Convert.ToInt32(modPow(partial, keys[1], keys[0]).ToString());
+            return result;
+        }
         
         bool coprimos(int a, int b)
         {
