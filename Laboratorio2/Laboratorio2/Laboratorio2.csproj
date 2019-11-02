@@ -199,6 +199,7 @@
     <Content Include="Views\SDES\DecryptFile.cshtml" />
     <Content Include="Views\AlgoritmoRSA\Index.cshtml" />
     <Content Include="Views\AlgoritmoRSA\GenerateKeys.cshtml" />
+    <Content Include="Views\AlgoritmoRSA\DownloadKeys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

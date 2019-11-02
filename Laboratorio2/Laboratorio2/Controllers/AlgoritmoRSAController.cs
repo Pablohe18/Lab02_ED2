@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Laboratorio2.DBContext;
 using Laboratorio2.Cifrado;
 using Laboratorio2.Models;
+using System.IO;
 
 namespace Laboratorio2.Controllers
 {
@@ -51,7 +52,25 @@ namespace Laboratorio2.Controllers
                         cifradoRSA.generate_key(keyRSA.ValorP, keyRSA.ValorQ, false);
                         db.privateKeyRSA[0] = Convert.ToInt32(cifradoRSA.keys[0].ToString());
                         db.privateKeyRSA[1] = Convert.ToInt32(cifradoRSA.keys[1].ToString());
-                        return RedirectToAction("DecryptFile");
+                        ////////
+                        var ruta = Server.MapPath("~/DownloadedFiles/") + "private.key";
+                        using (StreamWriter outputFile = new StreamWriter(ruta))
+                        {
+
+                            outputFile.Write(db.privateKeyRSA[0].ToString()+","+db.privateKeyRSA[1].ToString());
+
+                        }
+
+                        ////////
+                        ruta = Server.MapPath("~/DownloadedFiles/") + "public.key";
+                        using (StreamWriter outputFile = new StreamWriter(ruta))
+                        {
+
+                            outputFile.Write(db.publicKeyRSA[0].ToString() + "," + db.publicKeyRSA[1].ToString());
+
+                        }
+
+                        return RedirectToAction("DownloadKeys");
                     }
                     ViewBag.Message1 = "Debe ingresar dos numeros que al multiplicarse den como resultado un numero mayor a 255";
                 }
@@ -60,6 +79,24 @@ namespace Laboratorio2.Controllers
             return View(keyRSA);
         }
 
+        //METODO PARA DESCARGAR LAS LLAVES
+        public ActionResult DownloadKeys()
+        {
+            return View();
+        }
+
+        //DESCARGAR LA LLAVE PUBLICA
+        public FileResult DownloadPublicKey()
+        {
+            var ruta = Server.MapPath("~/DownloadedFiles/") + "public.key";
+            return File(ruta, "text/plain", "public.key");
+        }
+        //DESCARGAR LA LLAVE PRIVADA
+        public FileResult DownloadPrivateKey()
+        {
+            var ruta = Server.MapPath("~/DownloadedFiles/") + "private.key";
+            return File(ruta, "text/plain", "private.key");
+        }
 
     }
 }
