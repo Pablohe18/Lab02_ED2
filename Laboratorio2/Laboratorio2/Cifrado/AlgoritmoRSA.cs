@@ -14,6 +14,24 @@ namespace Laboratorio2.Cifrado
             keys = new long[2];
         }
 
+        public void generate_key(int p, int q, bool inout)
+        {
+            long n = Convert.ToInt64((p * q).ToString());
+            keys[0] = n;
+            int phi = (p - 1) * (q - 1);
+            int e = chooseE(phi);
+            if (inout)
+            {
+                keys[1] = Convert.ToInt64((e).ToString());
+            }
+            else
+            {
+                long x = Convert.ToInt64((e).ToString());
+                long d = modInverse(x, Convert.ToInt64((phi).ToString()));
+                keys[1] = d;
+            }
+
+        }
         
         bool coprimos(int a, int b)
         {
