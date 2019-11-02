@@ -8,7 +8,7 @@ namespace Laboratorio2.Models
 {
     public class KeyRSA
     {
-        public int keyP { get; set; }
-        public int KeyQ { get; set; }
+        public int ValorP { get; set; }
+        public int ValorQ { get; set; }
     }
 }

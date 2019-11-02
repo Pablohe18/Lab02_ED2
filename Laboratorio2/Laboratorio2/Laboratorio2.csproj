@@ -125,6 +125,7 @@
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Cifrado\AlgoritmoRSA.cs" />
     <Compile Include="Cifrado\Cesar.cs" />
+    <Compile Include="Cifrado\CifradoRSA.cs" />
     <Compile Include="Cifrado\SDes.cs" />
     <Compile Include="Cifrado\ZigZag.cs" />
     <Compile Include="Controllers\AlgoritmoRSAController.cs" />
